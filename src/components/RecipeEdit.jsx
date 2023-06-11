@@ -82,6 +82,17 @@ const RecipeEdit = () => {
 		}
 	};
 
+	const handleDeleteRecipe = async () => {
+		try {
+			await axios.delete(`https://localhost:8443/api/recipes/${id}`, {
+				headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+			});
+			window.location = '/recipes'
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const handleDeleteImage = async (imageId) => {
 		try {
 			await axios.delete(`https://localhost:8443/api/recipes/${id}/images/${imageId}`, {
@@ -168,6 +179,9 @@ const RecipeEdit = () => {
 
 								<Button variant="primary" type="submit">
 									Zapisz zmiany
+								</Button>
+								<Button variant="danger" style={{marginLeft: "1em"}} onClick={handleDeleteRecipe}>
+									Usuń przepis
 								</Button>
 							</Form>
 						</Card.Body>
